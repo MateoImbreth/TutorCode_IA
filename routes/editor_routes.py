@@ -1,4 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from database import SessionLocal
+from models import EjerciciosResueltos
 from schemas import CodeSubmissionRequest, CodeSubmissionResponse
 from llm_client import get_openai_llm
 from langchain.schema import HumanMessage, SystemMessage
@@ -7,37 +10,70 @@ import io
 
 router = APIRouter()
 
+# Crear una sesión de base de datos
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 # Endpoint 1: Ejecutar código Python y capturar salida
 @router.post("/evaluar-codigo-python", response_model=CodeSubmissionResponse)
-def evaluate_python_code(request: CodeSubmissionRequest):
+def evaluate_python_code(request: CodeSubmissionRequest, db: Session = Depends(get_db)):
     try:
-        old_stdout = sys.stdout
-        redirected_output = io.StringIO()
-        sys.stdout = redirected_output
+            old_stdout = sys.stdout
+            redirected_output = io.StringIO()
+            sys.stdout = redirected_output
 
-        safe_globals = {"_builtins_": {"print": print, "range": range, "len": len}}
-        safe_locals = {}
+            # Entorno seguro para ejecutar el código
+            safe_globals = {"_builtins_": {"print": print, "range": range, "len": len}}
+            safe_locals = {}
 
-        try:
-            exec(request.codigo, safe_globals, safe_locals)
-            status = "Éxito"
-            output = redirected_output.getvalue().strip()
-        except Exception as e:
-            status = str(e)
-            output = None
+            try:
+                # Intentar ejecutar el código
+                exec(request.codigo, safe_globals, safe_locals)
+                status = "Éxito"
+                output = redirected_output.getvalue().strip()
 
-        sys.stdout = old_stdout
+                # Registrar el ejercicio si es correcto
+                ejercicio_resuelto = EjerciciosResueltos(
+                    usuario_id=request.usuario_id,
+                    ejercicio_id=request.ejercicio_id
+                )
 
-        # Construir respuesta sin retroalimentación vacía
-        response = {"status": status}
-        if output:  # Incluir solo si hay contenido
-            response["retroalimentacion"] = output
+                # Comprobar si ya fue resuelto
+                ejercicio_existente = db.query(EjerciciosResueltos).filter(
+                    EjerciciosResueltos.usuario_id == request.usuario_id,
+                    EjerciciosResueltos.ejercicio_id == request.ejercicio_id
+                ).first()
 
-        return response
+                if ejercicio_existente:
+                    sys.stdout = old_stdout
+                    return {
+                        "status": "Ejercicio ya resuelto",
+                    }
 
+                db.add(ejercicio_resuelto)
+                db.commit()
+
+            except Exception as e:
+                # Capturar error como estado
+                status = str(e)
+                output = None
+
+            sys.stdout = old_stdout
+
+            # Construir la respuesta sin `retroalimentacion` si está vacía
+            response = {"status": status}
+            if output:  # Incluir solo si hay salida
+                response["retroalimentacion"] = output
+
+            return response
+    
     except Exception as e:
-        sys.stdout = old_stdout
-        raise HTTPException(status_code=500, detail=f"Error al evaluar el código: {str(e)}")
+            sys.stdout = old_stdout
+            raise HTTPException(status_code=500, detail=f"Error al evaluar el código: {str(e)}")
 
 # Endpoint 2: Retroalimentación con OpenAI LLM
 @router.post("/retroalimentacion-codigo", response_model=CodeSubmissionResponse)

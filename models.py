@@ -42,3 +42,14 @@ class Progreso(Base):
     # Relaciones con otras tablas
     usuario = relationship("Usuario", backref="progreso_usuario")
     ejercicio = relationship("Ejercicio", backref="progreso_ejercicio")
+
+class EjerciciosResueltos(Base):
+    __tablename__ = "ejerciciosresueltos"
+
+    id = Column(Integer, primary_key=True, index=True)
+    usuario_id = Column(Integer, ForeignKey("usuario.id", ondelete="CASCADE"), nullable=False)
+    ejercicio_id = Column(Integer, ForeignKey("ejercicio.id", ondelete="CASCADE"), nullable=False)
+
+    # Relaciones
+    usuario = relationship("Usuario", backref="ejercicios_resueltos")
+    ejercicio = relationship("Ejercicio", backref="ejercicios_resueltos")
