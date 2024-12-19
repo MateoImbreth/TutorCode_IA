@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from database import engine
 from models import Base
-from routes import user_routes, languaje_routes, exercise_routes, progress_routes, editor_routes
+from routes import user_routes, languaje_routes, exercise_routes, progress_routes, editor_routes, resolvedex_routes
 
 # Inicializar la aplicación FastAPI
 app = FastAPI()
@@ -15,6 +15,7 @@ app.include_router(languaje_routes.router, tags=["Lenguaje"])
 app.include_router(exercise_routes.router, tags=["Ejercicios"])
 app.include_router(progress_routes.router, tags=["Progreso"])
 app.include_router(editor_routes.router, tags=["Editor de Codigo"])
+app.include_router(resolvedex_routes.router, tags=["EjerciciosResueltos"])
 
 @app.get("/")
 def root():

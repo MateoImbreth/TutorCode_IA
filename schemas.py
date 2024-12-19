@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 
 #-- Login
@@ -46,11 +47,14 @@ class ProgressResponse(BaseModel):
 
 #-- Editor
 class CodeSubmissionRequest(BaseModel):
+    usuario_id: Optional[int]
     ejercicio_id: int  # Identificador del ejercicio
     codigo: str  # El código enviado por el usuario
 
 class CodeSubmissionResponse(BaseModel):
     status: str  # 'Éxito' o 'Error'
-    retroalimentacion: str  # Mensaje de retroalimentación
+    retroalimentacion: Optional[str]  # Mensaje de retroalimentación
 
-    
+# --EjerciciosResueltos
+class EjercicioResueltoResponse(BaseModel):
+    mensaje: str
