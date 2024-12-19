@@ -6,6 +6,12 @@ Create table Usuario(
 	rol VARCHAR(50) NOT NULL
 );
 
+Create table EjerciciosResueltos(
+	id SERIAL primary key,
+    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES Usuario (id) ON DELETE CASCADE,
+    CONSTRAINT fk_ejercicio FOREIGN KEY (ejercicio_id) REFERENCES Ejercicio (id) ON DELETE CASCADE
+);
+
 Create table Ejercicio(
 	id SERIAL primary key,
 	titulo VARCHAR(200) NOT NULL,
