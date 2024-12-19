@@ -30,7 +30,11 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
         
         # Token ficticio (puedes agregar JWT aquí si lo deseas)
         token = f"fake-token-for-{usuario.email}"
-        return {"message": "Inicio de sesión exitoso", "token": token}
+        return {
+            "message": "Inicio de sesión exitoso", 
+            "token": token,
+            "user_id": usuario.id
+            }
     
     except Exception as e:
         print(f"Error: {e}")  # Imprime el error en la consola para depurar

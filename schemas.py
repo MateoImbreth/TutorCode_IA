@@ -11,7 +11,7 @@ class LoginRequest(BaseModel):
 class LoginResponse(BaseModel):
     message: str
     token: str
-
+    user_id: int
 #-- Seleccion de lenguaje
 
 # Modelo para la solicitud
