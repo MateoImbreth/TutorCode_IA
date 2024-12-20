@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from database import SessionLocal
 from models import EjerciciosResueltos
 from schemas import CodeSubmissionRequest, CodeSubmissionResponse
-from llm_client import get_openai_llm
+from llm_client import get_google_llm
 from langchain.schema import HumanMessage, SystemMessage
 import sys
 import io
@@ -74,12 +74,13 @@ def evaluate_python_code(request: CodeSubmissionRequest, db: Session = Depends(g
             sys.stdout = old_stdout
             raise HTTPException(status_code=500, detail=f"Error al evaluar el código: {str(e)}")
 
-# Endpoint 2: Retroalimentación con OpenAI LLM
+# Endpoint 2: Retroalimentación con Google Gemini
 @router.post("/retroalimentacion-codigo", response_model=CodeSubmissionResponse)
 def get_code_feedback(request: CodeSubmissionRequest):
     try:
-        llm = get_openai_llm()
+        llm = get_google_llm()
 
+        # Mensajes de sistema y usuario
         system_message = SystemMessage(
             content="Eres un tutor de programación en Python. Corrige el siguiente código y proporciona sugerencias claras y constructivas."
         )
@@ -87,11 +88,12 @@ def get_code_feedback(request: CodeSubmissionRequest):
             content=f"Corrige y brinda retroalimentación en caso de estar incorrecto el siguiente código en Python:\n{request.codigo}"
         )
 
-        response = llm([system_message, user_message])
+        # Llamada al LLM
+        response = llm.generate_content(f"{system_message.content} {user_message.content}")
 
         return {
             "status": "Éxito",
-            "retroalimentacion": response.content.strip()
+            "retroalimentacion": response.text.strip()
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail={str(e)})
+        raise HTTPException(status_code=500, detail=str(e))
