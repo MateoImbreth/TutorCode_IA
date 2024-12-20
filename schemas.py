@@ -44,9 +44,11 @@ class ProgressRequest(BaseModel):
     resultado: int  # 1 = éxito, 0 = error
 
 class ProgressResponse(BaseModel):
-    mensaje: str
-    resultado: int
-
+    id_lenguaje: int
+    nombre_lenguaje: str
+    cantidad_ejercicios: int
+    cantidad_ejercicios_resueltos: int
+    
 #-- Editor
 class CodeSubmissionRequest(BaseModel):
     usuario_id: Optional[int]
