@@ -52,6 +52,7 @@ def evaluate_python_code(request: CodeSubmissionRequest, db: Session = Depends(g
                     sys.stdout = old_stdout
                     return {
                         "status": "Ejercicio ya resuelto",
+                        "retroalimentacion": None  # Incluimos retroalimentacion
                     }
 
                 db.add(ejercicio_resuelto)
@@ -65,9 +66,7 @@ def evaluate_python_code(request: CodeSubmissionRequest, db: Session = Depends(g
             sys.stdout = old_stdout
 
             # Construir la respuesta sin `retroalimentacion` si está vacía
-            response = {"status": status}
-            if output:  # Incluir solo si hay salida
-                response["retroalimentacion"] = output
+            response = {"status": status, "retroalimentacion": output}
 
             return response
     
