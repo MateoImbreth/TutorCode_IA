@@ -33,7 +33,9 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
         return {
             "message": "Inicio de sesión exitoso", 
             "token": token,
-            "user_id": usuario.id
+            "user_id": usuario.id,
+            "nombre": usuario.nombre,
+            "email": usuario.email
             }
     
     except Exception as e:

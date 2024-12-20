@@ -13,6 +13,8 @@ class LoginResponse(BaseModel):
     message: str
     token: str
     user_id: int
+    nombre: str
+    email: str
 #-- Seleccion de lenguaje
 
 # Modelo para la solicitud
