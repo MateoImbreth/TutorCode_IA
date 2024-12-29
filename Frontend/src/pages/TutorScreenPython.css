@@ -1,0 +1,155 @@
+.tutor-screen-python-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.header-python {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  /* Para alinear el logo a la derecha */
+}
+
+.tutor-logo-python {
+  width: 180px;
+  /* Ajusta el tamaño del logo según necesidad */
+  height: auto;
+  position: absolute;
+  /* Para colocar el logo en la esquina superior derecha */
+  top: 20px;
+  right: 20px;
+}
+
+.title-python {
+  font-size: 30px;
+  color: #1c78c0;
+  margin-bottom: 10px;
+  margin-left: -120px;
+  margin-top: -40px;
+}
+
+.enunciado-python {
+  font-size: 20px;
+  text-align: start;
+  color: #1c78c0;
+  margin-bottom: 20px;
+  align-self: flex-start;
+  margin-top: -10px;
+  margin-right: 200px;
+  margin-left: 0px; 
+
+  p {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+  }
+}
+
+.tutor-content-python {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  max-width: 1000px;
+  margin-top: 20px;
+}
+
+.student-input-container-python,
+.tutor-response-container-python {
+  width: 62%;
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 18px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.submit-container-python {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.submit-button-python {
+  background-color: #1c78c0;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.navigation-python {
+  margin-top: 15px;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.previous-button-python,
+.next-button-python {
+  background-color: #1c78c0;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.previous-button-python:hover,
+.next-button-python:hover {
+  background-color: #145a8a;
+}
+
+.previous-button-python {
+  margin-left: 10px;
+}
+
+.next-button-python {
+  margin-right: 10px;
+}
+
+.terminal-output-python {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #2d2d2d;
+  color: #f5f5f5;
+  font-family: 'Courier New', Courier, monospace;
+  border-radius: 10px;
+  max-height: 550px;
+  overflow-y: auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.terminal-output-python::before {
+  content: "Terminal";
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #61dafb;
+}
+
+.terminal-output-python p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.terminal-output-python pre {
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.terminal-output-python.expanded {
+  max-height: 650px;
+}

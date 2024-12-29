@@ -1,0 +1,92 @@
+/* SelectionScreen.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.selection-container {
+  text-align: center;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+  font-size: 36px;
+  color: #1c78c0;
+  margin-top: 40px;
+  font-weight: 700;
+}
+
+.languages {
+  display: flex;
+  justify-content: center;
+  gap: 200px;
+  margin-top: 30px;
+}
+
+.language-option {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  flex-direction: column;
+  background-color: #f0f0f0;
+}
+
+.language-option img {
+  width: 80%;
+  height: 80%;
+  cursor: pointer;
+}
+
+.language-option p {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1c78c0;
+}
+
+.language-option:hover {
+  transform: scale(1.1);
+  border-color: #1c78c0;
+  background-color: #e6f7ff;
+}
+
+.language-option:first-child p {
+
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1c78c0;
+}
+
+.language-option:nth-child(2) p {
+
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1c78c0;
+}
+
+.language-option:nth-child(3) p {
+
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1c78c0;
+}
+
+.divider {
+  width: 1px;
+  background-color: #ccc;
+  height: 40px;
+  align-self: center;
+}

@@ -1,0 +1,100 @@
+.profile-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 50px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  /* Adjusted to center better */
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  margin-top: -50px;
+}
+
+.profile-username {
+  font-size: 18px;
+  color: #333;
+  margin-top: -2px;
+  /* Adjusted for better spacing */
+  margin-left: -30px;
+
+}
+
+.edit-profile-icon {
+  width: 26px;
+  height: 26px;
+  margin-left: 125px;
+  position: relative;
+  top: -42px;
+  /* Adjusted to align with username */
+}
+
+.profile-info {
+  text-align: left;
+  font-size: 16px;
+  color: #333;
+  margin-top: 20px;
+  /* Added to improve layout */
+  margin-bottom: 40px;
+  margin-left: -950px;
+  line-height: 1.2;
+}
+
+.profile-info h3 {
+  font-size: 27px;
+  /* Font size for 'DATOS' title */
+}
+
+.profile-info p {
+  font-size: 23px;
+  /* Increased font size for 'Nombre' and 'Correo electrónico' */
+}
+
+.profile-footer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  padding: 15px 0;
+  /* Adjusted for better spacing */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f9f9f9;
+}
+
+.footer-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  flex-grow: 1;
+  padding: 35px 0;
+}
+
+.footer-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 5px;
+}
+
+.footer-option p {
+  font-size: 19px;
+  color: #333;
+  margin: 0;
+}
